@@ -16,6 +16,9 @@ on init
     mkdir /persist 0771 system system
 
 on fs
+    exec - root root -- /sbin/nbd-client -N system ${ro.boot.server} /dev/nbd0
+    exec - root root -- /sbin/nbd-client -N cache ${ro.boot.server} /dev/nbd1
+    exec - root root -- /sbin/nbd-client -N data ${ro.boot.server} /dev/nbd2
     mount_all /fstab.odroidxu3
 #    exec - root root -- /system/bin/mngblt
 
