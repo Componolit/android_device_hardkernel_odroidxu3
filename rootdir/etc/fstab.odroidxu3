@@ -4,7 +4,7 @@
 # specify MF_CHECK, and must come before any filesystems that do specify MF_CHECK
 
 
-/dev/nbd0   /system             ext4      rw,noatime,nodiratime                                                     wait
+/dev/nbd0   /system             ext4      ro,noatime,nodiratime                                                     wait
 /dev/nbd1   /cache              ext4      nosuid,nodev,noatime,noauto_da_alloc,journal_async_commit                 wait,formattable
 /dev/nbd2   /data               ext4      nosuid,nodev,noatime,noauto_da_alloc,journal_async_commit,errors=panic    wait,formattable,encryptable=footer
 
