@@ -16,9 +16,12 @@ on init
     mkdir /persist 0771 system system
 
 on fs
-    exec - root root -- /sbin/nbd-client -N system ${ro.boot.server} /dev/nbd0
-    exec - root root -- /sbin/nbd-client -N cache ${ro.boot.server} /dev/nbd1
-    exec - root root -- /sbin/nbd-client -N data ${ro.boot.server} /dev/nbd2
+    exec u:r:shell:s0 root root -- /sbin/mknod /dev/nbd0 b 43 0
+    exec u:r:shell:s0 root root -- /sbin/mknod /dev/nbd1 b 43 1
+    exec u:r:shell:s0 root root -- /sbin/mknod /dev/nbd2 b 43 2
+    exec u:r:shell:s0 root root -- /sbin/nbd-client -persist -N system ${ro.boot.server} /dev/nbd0
+    exec u:r:shell:s0 root root -- /sbin/nbd-client -persist -N cache ${ro.boot.server} /dev/nbd1
+    exec u:r:shell:s0 root root -- /sbin/nbd-client -persist -N data ${ro.boot.server} /dev/nbd2
     mount_all /fstab.odroidxu3
 #    exec - root root -- /system/bin/mngblt
 
